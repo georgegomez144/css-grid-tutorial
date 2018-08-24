@@ -1,0 +1,281 @@
+@import sass/index
+
+* 
+  padding: 0
+  margin: 0
+  box-sizing: content-box
+
+html
+  height: 100%
+
+body
+  font-family: 'Montserrat Alternates', sans-serif;
+  background-color: #e1e1e1
+  background: linear-gradient( 135deg, #71698b 10%, darken(desaturate($primary, 50), 20) 50%, #988BC8 100%) no-repeat center / cover fixed
+  color: $body-text
+
+input, textarea
+  color: $body-text
+  &:focus
+    color: $focus-text
+
+::-webkit-scrollbar
+  width: 10px
+::-webkit-scrollbar-track
+  background-color: transparent
+::-webkit-scrollbar-thumb
+  background-color: $primary
+::-webkit-scrollbar-corner
+  color: $primary
+  border-color: $primary
+  background-color: transparent
+
+.hide
+  opacity: 0
+  visibility: hidden
+  height: 0
+
+.container
+  margin: 20px auto
+  max-width: 900px
+.flex-container
+  margin: 20px auto
+  max-width: 90vw
+
+textarea
+  max-width: calc( 100% - 34px )
+  min-width: calc( 100% - 34px )
+  min-height: 40vh
+  border: 0
+  // border-radius: 3px
+  outline: 0;
+  padding: 15px
+  font-family: verdana
+  background: none
+
+[capitalize]
+  text-transform: capitalize
+[uppercase]
+  text-transform: uppercase
+
+.btn
+  display: inline-flex
+  flex-direction: row
+  white-space: nowrap
+  justify-content: space-around
+  align-items: center
+  cursor: pointer
+  border-radius: 2px
+  padding: 8px 15px
+  margin: 5px
+  transition: all 150ms ease-in-out
+  @for $i from 1 through length($colors)
+    &.#{nth($color-names, $i)}
+      background-color: nth($colors, $i)
+      color: white
+      &:hover
+        background-color: adjust-hue( nth($colors, $i), 10 )
+        transition: all 150ms ease-in-out
+  &.flat
+    box-shadow: 0
+  &:hover
+    box-shadow: 0 2px 4px 1px rgba(0,0,0,0.2)
+    transition: all 150ms ease-in-out
+
+.input-container
+  position: relative
+  flex: 1 0 auto;
+  &::after, &::before
+    content: ''
+    position: absolute
+    bottom: 0
+    display: block
+    height: 2px
+  &::before
+    width: 100%
+    background-color: #777777
+  &::after
+    width: 0
+    background-color: $focus-text
+    transition: all 150ms ease-in-out
+  &.has-content, &.active
+    label
+      top: -10px
+      left: 0
+      font-size: 0.8rem
+      transition: all 150ms ease-in-out
+  &.active
+    label
+      color: $focus-text
+    &::after
+      width: 100%
+      transition: all 150ms ease-in-out
+  label
+    position: absolute
+    top: 30%
+    left: 10px
+    color: #777777
+    transition: all 150ms ease-in-out
+  input
+    width: calc( 100% - 30px )
+    border: 0
+    outline: 0
+    padding: 8px 15px
+    background: none
+
+.card
+  flex: 1 1 auto
+  height: auto
+  width: auto
+  [layout-row] &
+    height: 100%
+  background-color: #f1f1f1
+  background-image: linear-gradient(130deg, adjust-hue(#3A3E4E, 30), lighten(#3A3E4E, 2), darken(#3A3E4E, 1) )
+  padding: 20px
+  border-radius: 2px
+  margin: 20px 10px
+  .title
+    font-weight: 500
+    font-size: 1.3rem
+    margin: 0
+    margin-bottom: 20px
+    color: $focus-text
+  .content
+    margin-bottom: 20px
+  .actions
+    display: flex
+    flex-direction: row
+
+@for $i from 0 through 10
+  [z-depth="#{$i}"]
+    box-shadow: 0 #{$i}px #{$i * 2.2}px -#{$i / 2}px rgba(0,0,0,0.4)
+
+.results-card
+  .results
+    div
+      // background-color: #ffffff
+      padding: 10px 20px
+      border-radius: 3px
+      margin: 5px 0
+      box-shadow: 0 3px 6px -3px rgba(0,0,0,0.3)
+      color: #ffffff
+      background-color: lighten(#3A3E4E, 10)
+      // @for $i from 1 through 10
+      //   &:nth-child(#{$i})
+      //     $percent: ($i * 5)
+      //     /* #{$percent} */
+      //     background-color: darken( desaturate( adjust-hue($primary, $percent), 40), 20)
+      > strong
+        display: block
+        color: $focus-text
+        &#common_phrase
+          &::before
+            content: open-quote
+          &::after
+            content: close-quote
+      > small
+        display: block
+        overflow: hidden
+        text-overflow: ellipsis
+        color: $body-text
+
+$menu_transition: all 250ms ease-in-out
+.menu-toggle
+  position: fixed
+  z-index: 11
+  top: 25px
+  right: 25px
+  cursor: pointer
+  display: block;
+  padding: 10px 0 10px 10px
+  span
+    position: relative
+    display: block;
+    height: 3px
+    width: 20px
+    background-color: #ffffff
+    transition: $menu_transition
+    &::before, &::after
+      position: absolute
+      right: 0
+      display: block
+      content: ''
+      height: 3px
+      transform: rotate(0deg)
+      background-color: #ffffff
+      transition: $menu_transition
+    &::before
+      top: -8px
+      width: 25px
+    &::after
+      top: 8px
+      width: 30px
+  &:hover
+    // padding: 10px 0
+    span
+      width: 30px
+      transition: $menu_transition
+      &::before, &::after
+        width: 30px
+        transition: $menu_transition
+  &.active
+    span
+      transform: rotate(45deg)
+      transition: $menu_transition
+      &:before, &:after
+        width: 30px
+        top: 0
+        transition: $menu_transition
+      &:before
+      &:after
+        transform: rotate(90deg)
+
+#screen
+  position: fixed
+  top: 0
+  left: 0
+  height: 100vh
+  width: 100vw
+  background-color: #000000
+  opacity: 0
+  visibility: hidden
+  transition: $menu_transition
+  &.active
+    opacity: 0.4
+    visibility: visible
+    transition: $menu_transition
+
+.sidebar
+  position: fixed
+  top: 0
+  right: -100%
+  z-index: 10
+  width: 300px
+  height: 100%
+  height: 100vh
+  min-height: 100%
+  min-height: 100vh
+  background-color: desaturate( darken($primary, 20), 40)
+  box-shadow: -4px 0 20px -6px rgba(0,0,0,0.3)
+  transition: right 350ms ease-in-out
+  &.active
+    right: 0
+    transition: right 250ms ease-in-out
+  ul
+    list-style: none
+    margin: 0
+    padding: 0
+    margin-top: 70px
+    li a
+      display: flex
+      flex-direction: row
+      flex-wrap: nowrap
+      justify-content: flex-start
+      align-items: center
+      text-decoration: none
+      padding: 13px 20px
+      color: darken( $body-text, 10 )
+      &:hover, &.active
+        color: $focus-text
+      i.material-icons
+        margin-right: 20px

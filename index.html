@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WordCounter Test</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Montserrat+Alternates" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="menu_toggle" class="menu-toggle" onclick="menu.toggle('#sidebar')">
+    <span></span>
+  </div>
+  <div id="sidebar" class="sidebar">
+    <ul>
+      <li>
+        <a href="#">
+          <i class="material-icons">home</i>
+          <span>Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="material-icons">info</i>
+          <span>More Infomation</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div id="screen" onclick="menu.toggle('#sidebar')"></div>
+  <div class="flex-container" layout-row>
+    <div class="card" z-depth="10">
+      <h2 class="title">Your body of text:</h2>
+      <div class="content">
+        <textarea id="user_input" onkeyup="findOccurances()"></textarea>
+      </div>
+    </div>
+
+    <div layout-column flex-40>
+
+      <div class="card" z-depth="4">
+        <div class="actions" layout-row layout-align="space-between center">
+          <div class="input-container">
+            <label for="customSearch">Custom phrase to count:</label>
+            <input type="text" id="customSearch">
+          </div>
+          <span class="btn primary" onclick="findOccurances('custom')">Find Occurances</span>
+        </div>
+        <h2 class="title" margin="50px auto 10px">Advanced Search</h2>
+        <div layout-column>
+          <p flex>Common phrases by word count:</p>
+          <div layout-row>
+            <span class="btn primary" onclick="findOccurances(2)">2 Words</span>
+            <span class="btn primary" onclick="findOccurances(3)">3 Words</span>
+            <span class="btn primary" onclick="findOccurances(4)">4 Words</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card results-card" z-depth="4">
+        <h2 class="title">Results</h2>
+        <div class="content results">
+          <div class="hide">
+            <small uppercase style="margin-bottom:15px">Custom Search parameters</small>
+            <strong id="common_phrase"></strong>
+          </div>
+          <div layout-row layout-align="space-between center" class="hide">
+            <small uppercase>Times the custom phrased was used</small>
+            <strong id="times_used">0</strong>
+          </div>
+          <div layout-row layout-align="space-between center">
+            <small uppercase>Number of common phrases</small>
+            <strong id="times_common_used">0</strong>
+          </div>
+          <div layout-row layout-align="space-between center">
+            <small uppercase>Times the common phrased was used</small>
+            <strong id="times_common_used">0</strong>
+          </div>
+          <div layout-row layout-align="space-between center">
+            <small uppercase>word(s)</small>
+            <strong id="total_word_count">0</strong>
+          </div>
+          <div layout-row layout-align="space-between center">
+            <small uppercase>character(s)</small>
+            <strong id="total_character_count">0</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="counter.js"></script>
+  <script src="dom.js"></script>
+</body>
+
+</html>

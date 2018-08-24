@@ -1,0 +1,17 @@
+$flexTypes: row column;
+@for $l from 1 through length($flexTypes)
+  [layout-#{nth($flexTypes, $l)}]
+    display: flex
+    flex-direction: nth($flexTypes, $l)
+    @if nth($flexTypes, $l) == 'row'
+      flex-wrap: wrap
+    @else
+      flex-wrap: nowrap
+
+[flex], flex, .flex
+  flex: 1 0 auto
+
+@for $i from 1 through 100
+  [flex-#{$i}]
+    flex: 0 1 auto !important
+    width: #{$i + '%'}
